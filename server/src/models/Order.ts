@@ -13,8 +13,8 @@ export interface IOrderModel extends IOrder, Document {}
 const OrderSchema: Schema = new Schema(
     {
         user: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
-        status: { type: String, enum: ['ACTIVE', 'COMPLETED'], required: true },
-        rate: { type: Number, min: 0, max: 5, required: true },
+        status: { type: String, enum: ['ACTIVE', 'COMPLETED'], default: 'ACTIVE', required: true },
+        rate: { type: Number, min: 0, max: 5, default: 0, required: true },
         products: [
             {
                 id: { type: String, required: true },

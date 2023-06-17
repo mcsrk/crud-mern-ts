@@ -1,5 +1,6 @@
 import Joi, { ObjectSchema } from 'joi';
 import { NextFunction, Request, Response } from 'express';
+import { IOrder } from '../models/Order';
 import { IUser } from '../models/User';
 import Logging from '../library/Logging';
 
@@ -18,6 +19,34 @@ export const ValidateJoi = (schema: ObjectSchema) => {
 };
 
 export const Schemas = {
+    order: {
+        create: Joi.object<IOrder>({
+            user: Joi.string()
+                .regex(/^[0-9a-fA-F]{24}$/)
+                .required(),
+            status: Joi.string().valid('ACTIVE', 'COMPLETED'),
+            rate: Joi.number().min(0).max(5),
+            products: Joi.array()
+                .items(
+                    Joi.object({
+                        id: Joi.number().required(),
+                        price: Joi.number().required()
+                    })
+                )
+                .required()
+        }),
+        update: Joi.object<IOrder>({
+            user: Joi.string().regex(/^[0-9a-fA-F]{24}$/),
+            status: Joi.string().valid('ACTIVE', 'COMPLETED'),
+            rate: Joi.number().min(0).max(5),
+            products: Joi.array().items(
+                Joi.object({
+                    id: Joi.number().required(),
+                    price: Joi.number().required()
+                })
+            )
+        })
+    },
     user: {
         create: Joi.object<IUser>({
             username: Joi.string().required(),

@@ -78,4 +78,19 @@ const addProduct = (req: Request, res: Response, next: NextFunction) => {
         .catch((error) => res.status(500).json({ error }));
 };
 
-export default { createOrder, readOrder, readAll, updateOrder, addProduct, deleteOrder };
+const deleteProduct = (req: Request, res: Response, next: NextFunction) => {
+    const { orderId, productId } = req.params;
+
+    /** Returns the object after update */
+    return Order.findByIdAndUpdate(orderId, { $pull: { products: { _id: productId } } }, { new: true })
+        .then((order) => {
+            if (order) {
+                return res.status(200).json({ order });
+            } else {
+                return res.status(404).json({ message: 'Order not found' });
+            }
+        })
+        .catch((error) => res.status(500).json({ error }));
+};
+
+export default { createOrder, readOrder, readAll, updateOrder, addProduct, deleteOrder, deleteProduct };

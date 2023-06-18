@@ -1,8 +1,8 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import User from '../models/User';
 
-const createUser = (req: Request, res: Response, next: NextFunction) => {
+const createUser = (req: Request, res: Response) => {
     const { username, password } = req.body;
 
     const user = new User({
@@ -17,7 +17,7 @@ const createUser = (req: Request, res: Response, next: NextFunction) => {
         .catch((error) => res.status(500).json({ error }));
 };
 
-const readUser = (req: Request, res: Response, next: NextFunction) => {
+const readUser = (req: Request, res: Response) => {
     const userId = req.params.userId;
 
     return User.findById(userId)
@@ -25,13 +25,13 @@ const readUser = (req: Request, res: Response, next: NextFunction) => {
         .catch((error) => res.status(500).json({ error }));
 };
 
-const readAll = (req: Request, res: Response, next: NextFunction) => {
+const readAll = (req: Request, res: Response) => {
     return User.find()
         .then((users) => res.status(200).json({ users }))
         .catch((error) => res.status(500).json({ error }));
 };
 
-const updateUser = (req: Request, res: Response, next: NextFunction) => {
+const updateUser = (req: Request, res: Response) => {
     const userId = req.params.userId;
 
     return User.findById(userId)
@@ -50,7 +50,7 @@ const updateUser = (req: Request, res: Response, next: NextFunction) => {
         .catch((error) => res.status(500).json({ error }));
 };
 
-const deleteUser = (req: Request, res: Response, next: NextFunction) => {
+const deleteUser = (req: Request, res: Response) => {
     const userId = req.params.userId;
 
     return User.findByIdAndDelete(userId)
@@ -58,4 +58,12 @@ const deleteUser = (req: Request, res: Response, next: NextFunction) => {
         .catch((error) => res.status(500).json({ error }));
 };
 
-export default { createUser, readUser, readAll, updateUser, deleteUser };
+const login = (req: Request, res: Response) => {
+    const userId = req.params.userId;
+
+    return User.findByIdAndDelete(userId)
+        .then((user) => (user ? res.status(201).json({ user, message: 'Deleted' }) : res.status(404).json({ message: 'User not found' })))
+        .catch((error) => res.status(500).json({ error }));
+};
+
+export default { createUser, readUser, readAll, updateUser, deleteUser, login };

@@ -44,7 +44,7 @@ const Signup = ({ setCurrentTab }) => {
     };
 
     return (
-        <Card className="max-w-md mx-auto mt-16">
+        <Card className="max-w-md px-4 w-full mx-auto">
             <LandingCardHeader heading="Crea un usuario" paragraph="¿Ya tienes un usuario? " linkName="Ingresa" onClick={() => setCurrentTab('LOGIN')} />
             <Spin spinning={signupLoading} tip={loadingMessages.signup}>
                 <Form form={form} layout="vertical" name="signup" className="w-full " onFinish={onFinish} autoComplete="off">

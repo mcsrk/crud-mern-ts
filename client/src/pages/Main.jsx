@@ -26,7 +26,7 @@ const Main = ({ colorBgContainer }) => {
     }, [token]);
 
     return (
-        <Content className="px-6 py-6 sm:px-12 ">
+        <Content className="px-6 py-6 sm:px-12">
             <div
                 className="min-h-screen p-4 sm:p-6 "
                 style={{

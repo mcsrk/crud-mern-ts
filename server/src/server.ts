@@ -9,6 +9,7 @@ import { config } from './config/config';
 import Logging from './library/Logging';
 
 // Routes
+import publicRoutes from './routes/Public.routes';
 import userRoutes from './routes/User.routes';
 import orderRoutes from './routes/Order.routes';
 
@@ -58,6 +59,7 @@ const StartServer = () => {
     });
 
     /** Routes */
+    router.use('/', publicRoutes);
     router.use('/users', userRoutes);
     router.use('/orders', orderRoutes);
 

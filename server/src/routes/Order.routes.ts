@@ -1,9 +1,11 @@
 import express from 'express';
-import controller from '../controllers/Order';
 
 // Middlewares
 import { Schemas, ValidateJoi } from '../middleware/Joi';
 import { CheckOrderStatus } from '../middleware/CheckOrderStatus';
+
+// Controllers
+import controller from '../controllers/Order';
 
 const router = express.Router();
 

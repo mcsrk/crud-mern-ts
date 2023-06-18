@@ -55,11 +55,11 @@ export const Schemas = {
     user: {
         create: Joi.object<IUser>({
             username: Joi.string().required(),
-            password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/)
+            password: Joi.string().required()
         }),
         update: Joi.object<IUser>({
             username: Joi.string(),
-            password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/)
+            password: Joi.string()
         }).or('username', 'password')
     },
     product: {

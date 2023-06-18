@@ -12,6 +12,6 @@ const router = express.Router();
 router.post('/register', ValidateJoi(Schemas.user.create), controller.createUser);
 
 /** Auth*/
-router.post('/login', ValidateJoi(Schemas.user.update), controller.login);
+router.post('/login', controller.login);
 
 export = router;

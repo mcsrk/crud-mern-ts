@@ -1,10 +1,16 @@
 import express from 'express';
 import http from 'http';
 import mongoose from 'mongoose';
+
+// Config
 import { config } from './config/config';
+
+// Custom modules
 import Logging from './library/Logging';
-import userRoutes from './routes/User';
-import bookRoutes from './routes/Book';
+
+// Routes
+import userRoutes from './routes/User.routes';
+import orderRoutes from './routes/Order.routes';
 
 const router = express();
 
@@ -53,7 +59,7 @@ const StartServer = () => {
 
     /** Routes */
     router.use('/users', userRoutes);
-    router.use('/books', bookRoutes);
+    router.use('/orders', orderRoutes);
 
     /** Healthcheck endpoint */
     router.get('/ping', (req, res, next) => res.status(200).json({ hello: 'world' }));

@@ -1,8 +1,8 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import Order from '../models/Order';
 
-const createOrder = (req: Request, res: Response, next: NextFunction) => {
+const createOrder = (req: Request, res: Response) => {
     const { user, status, rate, products } = req.body;
 
     const order = new Order({
@@ -19,7 +19,7 @@ const createOrder = (req: Request, res: Response, next: NextFunction) => {
         .catch((error) => res.status(500).json({ error }));
 };
 
-const readOrder = (req: Request, res: Response, next: NextFunction) => {
+const readOrder = (req: Request, res: Response) => {
     const orderId = req.params.orderId;
 
     return Order.findById(orderId)
@@ -27,13 +27,13 @@ const readOrder = (req: Request, res: Response, next: NextFunction) => {
         .catch((error) => res.status(500).json({ error }));
 };
 
-const readAll = (req: Request, res: Response, next: NextFunction) => {
+const readAll = (req: Request, res: Response) => {
     return Order.find()
         .then((orders) => res.status(200).json({ orders }))
         .catch((error) => res.status(500).json({ error }));
 };
 
-const updateOrder = (req: Request, res: Response, next: NextFunction) => {
+const updateOrder = (req: Request, res: Response) => {
     const orderId = req.params.orderId;
 
     return Order.findById(orderId)
@@ -52,7 +52,7 @@ const updateOrder = (req: Request, res: Response, next: NextFunction) => {
         .catch((error) => res.status(500).json({ error }));
 };
 
-const completeOrder = (req: Request, res: Response, next: NextFunction) => {
+const completeOrder = (req: Request, res: Response) => {
     const orderId = req.params.orderId;
 
     return Order.findById(orderId)
@@ -71,7 +71,7 @@ const completeOrder = (req: Request, res: Response, next: NextFunction) => {
         .catch((error) => res.status(500).json({ error }));
 };
 
-const deleteOrder = (req: Request, res: Response, next: NextFunction) => {
+const deleteOrder = (req: Request, res: Response) => {
     const orderId = req.params.orderId;
 
     return Order.findByIdAndDelete(orderId)
@@ -79,7 +79,7 @@ const deleteOrder = (req: Request, res: Response, next: NextFunction) => {
         .catch((error) => res.status(500).json({ error }));
 };
 
-const addProduct = (req: Request, res: Response, next: NextFunction) => {
+const addProduct = (req: Request, res: Response) => {
     const orderId = req.params.orderId;
     return Order.findById(orderId)
         .then((order) => {
@@ -97,7 +97,7 @@ const addProduct = (req: Request, res: Response, next: NextFunction) => {
         .catch((error) => res.status(500).json({ error }));
 };
 
-const deleteProduct = (req: Request, res: Response, next: NextFunction) => {
+const deleteProduct = (req: Request, res: Response) => {
     const { orderId, productId } = req.params;
 
     /** Returns the object after update */

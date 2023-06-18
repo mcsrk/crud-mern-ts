@@ -10,6 +10,8 @@ Made using with Node v16.18.1
 
 To run this project, you will need to add the following environment variables to your .env file inside the backend folder
 
+-   `JWT_SECRET` - A custom string to act a secret to hash encrypt the passwords on db safely
+-
 -   `MONGO_USERNAME` - The admin username to access mongo cluster
 
 -   `MONGO_PASSWORD` - The admin password to access mongo cluster

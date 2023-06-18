@@ -8,10 +8,10 @@ import controller from '../controllers/User';
 
 const router = express.Router();
 
-router.get('/', controller.readAll);
-router.get('/:userId', controller.readUser);
+/** Register*/
+router.post('/register', ValidateJoi(Schemas.user.create), controller.createUser);
 
-router.patch('/:userId', ValidateJoi(Schemas.user.update), controller.updateUser);
-router.delete('/:userId', controller.deleteUser);
+/** Auth*/
+router.post('/login', ValidateJoi(Schemas.user.update), controller.login);
 
 export = router;

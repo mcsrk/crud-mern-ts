@@ -17,7 +17,7 @@ const OrderSchema: Schema = new Schema(
         rate: { type: Number, min: 0, max: 5, default: 0, required: true },
         products: [
             {
-                id: { type: String, required: true },
+                id: { type: Number, required: true },
                 price: { type: Number, required: true }
             }
         ]

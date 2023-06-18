@@ -9,8 +9,8 @@ import { config } from './config/config';
 import Logging from './library/Logging';
 
 // Routes
-import userRoutes from './routes/User';
-import orderRoutes from './routes/Order';
+import userRoutes from './routes/User.routes';
+import orderRoutes from './routes/Order.routes';
 
 const router = express();
 

@@ -6,7 +6,9 @@ const router = express.Router();
 
 router.get('/', controller.readAll);
 router.get('/:orderId', controller.readOrder);
+
 router.post('/', ValidateJoi(Schemas.order.create), controller.createOrder);
+router.post('/:orderId/complete', controller.completeOrder);
 router.patch('/:orderId', ValidateJoi(Schemas.order.update), controller.updateOrder);
 router.delete('/:orderId', controller.deleteOrder);
 

@@ -52,6 +52,25 @@ const updateOrder = (req: Request, res: Response, next: NextFunction) => {
         .catch((error) => res.status(500).json({ error }));
 };
 
+const completeOrder = (req: Request, res: Response, next: NextFunction) => {
+    const orderId = req.params.orderId;
+
+    return Order.findById(orderId)
+        .then((order) => {
+            if (order) {
+                order.status = 'COMPLETED';
+
+                return order
+                    .save()
+                    .then((order) => res.status(200).json({ order }))
+                    .catch((error) => res.status(500).json({ error }));
+            } else {
+                return res.status(404).json({ message: 'Order not found' });
+            }
+        })
+        .catch((error) => res.status(500).json({ error }));
+};
+
 const deleteOrder = (req: Request, res: Response, next: NextFunction) => {
     const orderId = req.params.orderId;
 
@@ -93,4 +112,4 @@ const deleteProduct = (req: Request, res: Response, next: NextFunction) => {
         .catch((error) => res.status(500).json({ error }));
 };
 
-export default { createOrder, readOrder, readAll, updateOrder, addProduct, deleteOrder, deleteProduct };
+export default { createOrder, readOrder, readAll, updateOrder, completeOrder, addProduct, deleteOrder, deleteProduct };

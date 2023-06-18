@@ -1,8 +1,13 @@
 import Joi, { ObjectSchema } from 'joi';
 import { NextFunction, Request, Response } from 'express';
-import { IOrder } from '../models/Order';
-import { IUser } from '../models/User';
+
+// Custom modules
 import Logging from '../library/Logging';
+
+// Models
+import { IUser } from '../models/User';
+import { IOrder } from '../models/Order';
+import { IProduct } from '../models/Product';
 
 export const ValidateJoi = (schema: ObjectSchema) => {
     return async (req: Request, res: Response, next: NextFunction) => {
@@ -56,5 +61,14 @@ export const Schemas = {
             username: Joi.string(),
             password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/)
         }).or('username', 'password')
+    },
+    product: {
+        create: Joi.object<IProduct>({
+            id: Joi.number().required(),
+            price: Joi.number().required()
+        }),
+        update: Joi.object<IProduct>({
+            price: Joi.number().required()
+        })
     }
 };

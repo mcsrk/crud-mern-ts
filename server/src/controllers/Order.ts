@@ -60,4 +60,22 @@ const deleteOrder = (req: Request, res: Response, next: NextFunction) => {
         .catch((error) => res.status(500).json({ error }));
 };
 
-export default { createOrder, readOrder, readAll, updateOrder, deleteOrder };
+const addProduct = (req: Request, res: Response, next: NextFunction) => {
+    const orderId = req.params.orderId;
+    return Order.findById(orderId)
+        .then((order) => {
+            if (order) {
+                order.products.push(req.body);
+
+                return order
+                    .save()
+                    .then((order) => res.status(201).json({ order }))
+                    .catch((error) => res.status(500).json({ error }));
+            } else {
+                return res.status(404).json({ message: 'Order not found' });
+            }
+        })
+        .catch((error) => res.status(500).json({ error }));
+};
+
+export default { createOrder, readOrder, readAll, updateOrder, addProduct, deleteOrder };

@@ -5,6 +5,9 @@ import es_ES from 'antd/es/locale/es_ES';
 import { BrowserRouter } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
+// Components
+import CustomHeader from './components/header/CustomHeader';
+import CustomFooter from './components/footer/CustomFooter';
 import Auth from './pages/Auth';
 
 function App() {

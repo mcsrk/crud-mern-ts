@@ -9,9 +9,11 @@ export const getCategories = async () => {
     }
 };
 
-export const getProducts = async (category = '') => {
+export const getProducts = async (category) => {
+    const categoryQuery = category ? `category/${category}` : '';
+
     try {
-        const response = await createProductsRequest().get(`/${category}`, {
+        const response = await createProductsRequest().get(`/${categoryQuery}`, {
             params: {
                 sort: 'desc'
             }

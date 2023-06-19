@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { List } from 'antd';
+import { List, Space } from 'antd';
 import { ShopOutlined, ReloadOutlined } from '@ant-design/icons';
 
 // Components
@@ -13,15 +13,17 @@ import { openNotification } from '../../../utils/utils';
 
 import ProductCard from './ProductCard';
 import ProductSkeleton from './ProductSkeleton';
+import SelectCategory from './SelectCategory';
 
 const Products = () => {
     const [productsLoading, setProductsLoading] = useState(false);
     const [products, setProducts] = useState([]);
+    const [queryCategory, setQueryCategory] = useState('');
 
     const handleGetProducts = async () => {
         setProductsLoading(true);
         try {
-            const res = await getProducts();
+            const res = await getProducts(queryCategory);
             const updatedRes = res.map((product) => ({
                 key: product.id,
                 ...product
@@ -44,7 +46,8 @@ const Products = () => {
 
     useEffect(() => {
         handleGetProducts();
-    }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [queryCategory]);
 
     return (
         <>
@@ -59,6 +62,14 @@ const Products = () => {
                     callback: reloadProducts
                 }}
             />
+            <Space
+                style={{
+                    width: '100%'
+                }}
+                direction="vertical"
+            >
+                <SelectCategory setQueryCategory={setQueryCategory} />
+            </Space>
 
             <List
                 className="mt-8 mx-auto p-4 bg-gray-50 rounded-md"

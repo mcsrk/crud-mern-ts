@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { List, Space } from 'antd';
+import { Divider, List, Space } from 'antd';
 import { ShopOutlined, ReloadOutlined } from '@ant-design/icons';
 
 // Components
@@ -62,6 +62,7 @@ const Products = () => {
                     callback: reloadProducts
                 }}
             />
+            <Divider />
             <Space
                 style={{
                     width: '100%'

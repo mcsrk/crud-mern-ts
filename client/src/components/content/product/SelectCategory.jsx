@@ -39,7 +39,7 @@ const SelectCategory = ({ setQueryCategory }) => {
         <Select
             allowClear
             placeholder="Filtra por categoría"
-            className="w-48 mt-4 mr-auto"
+            className="w-48   mr-auto"
             style={{
                 width: 200
             }}

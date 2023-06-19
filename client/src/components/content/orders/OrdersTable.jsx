@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Table } from 'antd';
-import { ShoppingCartOutlined, ReloadOutlined } from '@ant-design/icons';
+import { BookOutlined, ReloadOutlined } from '@ant-design/icons';
 
 // Router
 import { useNavigate } from 'react-router';
@@ -75,7 +75,7 @@ const OrdersTable = () => {
             <TableTitle
                 content={{
                     title: 'Tus ordenes',
-                    icon: <ShoppingCartOutlined />
+                    icon: <BookOutlined />
                 }}
                 action={{
                     title: 'Actualizar',

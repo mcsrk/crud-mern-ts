@@ -130,11 +130,7 @@ const getOrdersByUser = (req: Request, res: Response) => {
     console.log({ userId });
     return Order.find({ user: userId })
         .then((orders) => {
-            if (orders.length > 0) {
-                return res.status(200).json({ orders });
-            } else {
-                return res.status(404).json({ message: 'No orders found for the user' });
-            }
+            return res.status(200).json({ orders });
         })
         .catch((error) => res.status(500).json({ error }));
 };

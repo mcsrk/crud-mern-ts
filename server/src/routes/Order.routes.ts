@@ -15,6 +15,7 @@ router.get('/:orderId', controller.readOrder);
 /** Modify orders directly */
 router.post('/', ValidateJoi(Schemas.order.create), controller.createOrder);
 router.post('/:orderId/complete', controller.completeOrder);
+router.patch('/:orderId/rate', ValidateJoi(Schemas.order.rate), controller.updateOrder);
 router.patch('/:orderId', CheckOrderStatus, ValidateJoi(Schemas.order.update), controller.updateOrder);
 router.delete('/:orderId', CheckOrderStatus, controller.deleteOrder);
 

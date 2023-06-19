@@ -50,6 +50,9 @@ export const Schemas = {
                     price: Joi.number().required()
                 })
             )
+        }),
+        rate: Joi.object<IOrder>({
+            rate: Joi.number().min(0).max(5).required()
         })
     },
     user: {

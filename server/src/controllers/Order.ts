@@ -1,9 +1,15 @@
 import { Request, Response } from 'express';
 import mongoose from 'mongoose';
+
+// Models
 import Order from '../models/Order';
+import { IProduct } from '../models/Product';
 
 const createOrder = (req: Request, res: Response) => {
-    const { user, status, rate, products, total } = req.body;
+    const { user, status, rate, products } = req.body;
+
+    // Calculate the total by summing the 'total' fields of all products
+    const total = products.reduce((accumulator: number, product: IProduct) => accumulator + product.total, 0);
 
     const order = new Order({
         _id: new mongoose.Types.ObjectId(),

@@ -18,7 +18,22 @@ const orders_table_cols = [
         key: 'status',
         render: (_, record) => {
             return <Tag color={record.status === 'ACTIVE' ? 'green' : 'geekblue'}>{record.status}</Tag>;
-        }
+        },
+        filters: [
+            {
+                text: 'Activas',
+                value: 'ACTIVE'
+            },
+            {
+                text: 'Completadas',
+                value: 'COMPLETED'
+            }
+        ],
+        // specify the condition of filtering result
+        // here is that finding the name started with `value`
+        onFilter: (value, record) => record.status.indexOf(value) === 0,
+        sorter: (a, b) => a.status.length - b.status.length,
+        sortDirections: ['descend']
     },
 
     {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Table } from 'antd';
+import { Result, Table } from 'antd';
 import { BookOutlined, ReloadOutlined } from '@ant-design/icons';
 
 // Router
@@ -85,21 +85,25 @@ const OrdersTable = () => {
                 }}
             />
 
-            <Table
-                bordered
-                onRow={(row) => {
-                    return {
-                        onClick: () => {
-                            handleClickRow(row);
-                        }
-                    };
-                }}
-                loading={ordersLoading}
-                className="mt-8"
-                columns={columns}
-                dataSource={orders}
-                rowClassName="cursor-pointer"
-            />
+            {orders.length > 0 ? (
+                <Table
+                    bordered
+                    onRow={(row) => {
+                        return {
+                            onClick: () => {
+                                handleClickRow(row);
+                            }
+                        };
+                    }}
+                    loading={ordersLoading}
+                    className="mt-8"
+                    columns={columns}
+                    dataSource={orders}
+                    rowClassName="cursor-pointer"
+                />
+            ) : (
+                <Result status="403" title="Sin ordenes!" subTitle="No has creado ordenes todavía." />
+            )}
         </>
     );
 };

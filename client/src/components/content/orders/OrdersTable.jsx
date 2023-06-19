@@ -86,7 +86,7 @@ const OrdersTable = () => {
             />
 
             {ordersLoading ? (
-                <Table bordered loading={ordersLoading} className="mt-8" columns={columns} dataSource={Array(3).fill(0)} rowClassName="cursor-pointer" />
+                <Table bordered loading={ordersLoading} className="mt-8" columns={columns} dataSource={Array(3).fill({ status: 'ACTIVE' })} rowClassName="cursor-pointer" />
             ) : orders.length > 0 ? (
                 <Table
                     bordered

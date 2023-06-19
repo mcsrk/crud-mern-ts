@@ -70,7 +70,7 @@ const orders_table_cols = [
         key: 'total',
         responsive: ['md'],
         render: (_, record) => {
-            return record?.total ? record.total : <p className="italic text-gray-400 m-0">Sin total</p>;
+            return record?.total ? <span className="text-bold">{'$ ' + record.total}</span> : <p className="italic text-gray-400 m-0">Sin total</p>;
         }
     }
 ];

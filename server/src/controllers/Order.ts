@@ -3,13 +3,14 @@ import mongoose from 'mongoose';
 import Order from '../models/Order';
 
 const createOrder = (req: Request, res: Response) => {
-    const { user, status, rate, products } = req.body;
+    const { user, status, rate, products, total } = req.body;
 
     const order = new Order({
         _id: new mongoose.Types.ObjectId(),
         user,
         status,
         rate,
+        total,
         products
     });
 

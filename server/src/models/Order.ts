@@ -5,6 +5,7 @@ export interface IOrder {
     user: string;
     status: 'ACTIVE' | 'COMPLETED';
     rate: number;
+    total: number;
     products: IProduct[];
 }
 
@@ -15,10 +16,13 @@ const OrderSchema: Schema = new Schema(
         user: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
         status: { type: String, enum: ['ACTIVE', 'COMPLETED'], default: 'ACTIVE', required: true },
         rate: { type: Number, min: 0, max: 5, default: 0, required: true },
+        total: { type: Number, required: true },
         products: [
             {
                 id: { type: Number, required: true },
-                price: { type: Number, required: true }
+                price: { type: Number, required: true },
+                interest: { type: Number, required: true },
+                total: { type: Number, required: true }
             }
         ]
     },

@@ -32,7 +32,7 @@ const MONGO_URL = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@<your_clust
 
 ### ./client
 
-To run this project, you will need to add the following environment variables to your .env file inside the backend folder
+To run this project, you will need to add the following environment variables to your `.env.development` file inside the `./client` folder
 
 -   `VITE_BACKEND_URL` - Url to connect the backend (usually is [http://localhost:8000](http://localhost:8000))
 -

@@ -9,6 +9,7 @@ import { createBrowserHistory } from 'history';
 import CustomHeader from './components/header/CustomHeader';
 import CustomFooter from './components/footer/CustomFooter';
 import Auth from './pages/Auth';
+import Main from './pages/Main';
 
 function App() {
     const {
@@ -19,6 +20,11 @@ function App() {
         <ConfigProvider locale={es_ES}>
             <BrowserRouter history={createBrowserHistory()}>
                 <Auth>
+                    <Layout className="layout ">
+                        <CustomHeader />
+                        <Main colorBgContainer={colorBgContainer} />
+                        <CustomFooter />
+                    </Layout>
                 </Auth>
             </BrowserRouter>
         </ConfigProvider>

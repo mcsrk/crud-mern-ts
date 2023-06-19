@@ -4,6 +4,11 @@
 
 Made using with Node v16.18.1
 
+### Finished Features:
+
+Password Encryption, Username & Password Authentication and Bearer Token Authorization for private routes, Product filter by category, Cart Management using Redux, Create Order, Delete Order, Finish
+Order, Rate Order, Filter Orders by status & Responsiveness.
+
 ## Environment Variables
 
 ### ./server

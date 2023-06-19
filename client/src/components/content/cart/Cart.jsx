@@ -15,24 +15,55 @@ import { remove } from '../../../redux/slices/cartSlice';
 
 // Utils
 import { openNotification } from '../../../utils/utils';
+import { createOrder } from '../../../services/ordersSerivce';
+import { getUserData } from '../../../services/userService';
 
 const Cart = () => {
     const [totalAmount, setTotalAmount] = useState(0);
     const { cart } = useSelector((state) => state);
-
+    const userData = getUserData();
     const dispatch = useDispatch();
+    const [createLoading, setCreateLoading] = useState(false);
 
     const removeItemFromCart = (id) => {
         dispatch(remove(id));
         openNotification('info', `Productoeliminado de tu carrito!`);
     };
 
-    const handleDeleteAll = () => {
+    const handleDeleteAll = (showNotification = false) => {
         cart.forEach((product) => {
             dispatch(remove(product.id));
         });
-        openNotification('info', `Productos eliminados`);
+        if (showNotification) openNotification('info', `Productos eliminados`);
     };
+
+    const handleCreateOrder = async (_cart, _user) => {
+        setCreateLoading(true);
+        try {
+            const products = _cart?.map(({ id, price, interest, total }) => {
+                return {
+                    price,
+                    interest,
+                    id,
+                    total
+                };
+            });
+
+            const orderBody = { user: _user.id, products };
+
+            const res = await createOrder(orderBody);
+
+            handleDeleteAll();
+
+            openNotification('success', `Orden ${res?.order._id} creada!`);
+        } catch (e) {
+            console.log('[Cart] - Error creando orden');
+            openNotification('error', 'Error creando orden.', e.response.data.message);
+        } finally {
+            setCreateLoading(false);
+        }
+    };
+
     /** Pushing here the new column because of the handleGetOrder context */
     if (!cart_table_cols.find((col) => col.key === 'action')) {
         cart_table_cols.push({
@@ -84,10 +115,12 @@ const Cart = () => {
                                     </p>
 
                                     <Space>
-                                        <Button type="text" danger onClick={handleDeleteAll}>
+                                        <Button loading={createLoading} type="text" danger onClick={() => handleDeleteAll(true)}>
                                             Borrar carrito
                                         </Button>
-                                        <Button type="primary">Ordenar</Button>
+                                        <Button loading={createLoading} type="primary" onClick={() => handleCreateOrder(cart, userData)}>
+                                            Ordenar
+                                        </Button>
                                     </Space>
                                 </div>
                             </Card>

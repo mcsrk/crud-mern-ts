@@ -26,6 +26,8 @@ const Products = () => {
             const res = await getProducts(queryCategory);
             const updatedRes = res.map((product) => ({
                 key: product.id,
+                interest: product.price * 0.15,
+                total: product.price * 1.15,
                 ...product
             }));
             setProducts(updatedRes);

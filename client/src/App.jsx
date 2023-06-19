@@ -4,6 +4,8 @@ import { Layout, theme, ConfigProvider } from 'antd';
 import es_ES from 'antd/es/locale/es_ES';
 import { BrowserRouter } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
 // Components
 import CustomHeader from './components/header/CustomHeader';
@@ -17,17 +19,19 @@ function App() {
     } = theme.useToken();
 
     return (
-        <ConfigProvider locale={es_ES}>
-            <BrowserRouter history={createBrowserHistory()}>
-                <Auth>
-                    <Layout className="layout ">
-                        <CustomHeader />
-                        <Main colorBgContainer={colorBgContainer} />
-                        <CustomFooter />
-                    </Layout>
-                </Auth>
-            </BrowserRouter>
-        </ConfigProvider>
+        <Provider store={store}>
+            <ConfigProvider locale={es_ES}>
+                <BrowserRouter history={createBrowserHistory()}>
+                    <Auth>
+                        <Layout className="layout ">
+                            <CustomHeader />
+                            <Main colorBgContainer={colorBgContainer} />
+                            <CustomFooter />
+                        </Layout>
+                    </Auth>
+                </BrowserRouter>
+            </ConfigProvider>{' '}
+        </Provider>
     );
 }
 

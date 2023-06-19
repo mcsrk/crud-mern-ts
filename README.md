@@ -6,7 +6,7 @@ Made using with Node v16.18.1
 
 ## Environment Variables
 
-### Server
+### ./server
 
 To run this project, you will need to add the following environment variables to your .env file inside the backend folder
 
@@ -30,9 +30,27 @@ located at the `config/config.ts` file:
 const MONGO_URL = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@<your_cluster_name>.<your_cluster_provider>.mongodb.net/db`;
 ```
 
+### ./client
+
+To run this project, you will need to add the following environment variables to your .env file inside the backend folder
+
+-   `VITE_BACKEND_URL` - Url to connect the backend (usually is [http://localhost:8000](http://localhost:8000))
+-
+-   `VITE_PRORUCTS_URL` - Url to connect the fake products api [https://fakestoreapi.com/products](https://fakestoreapi.com/products)
+
 ## Setup
 
-### Server
+### ./server
+
+Install required packages
+
+```sh
+
+npm  i
+
+```
+
+### ./client
 
 Install required packages
 
@@ -44,12 +62,22 @@ npm  i
 
 ## Run Locally
 
-### Server
+### ./server
 
-Once setup, you should be able to run the project by running:
+Once setup the server, you should be able to run the project by running:
 
 ```sh
 
 nodemon
+
+```
+
+### ./client
+
+Once setup the client, you should be able to run the project by running:
+
+```sh
+
+npm run dev
 
 ```

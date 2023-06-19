@@ -32,7 +32,7 @@ export const loginUser = async (username, password, navigate) => {
         console.log(userData);
         localStorage.setItem('user', JSON.stringify(userData));
 
-        navigate('/orders', { replace: true });
+        navigate('/products', { replace: true });
         window.location.reload();
     } catch (e) {
         return throwErrors(e);

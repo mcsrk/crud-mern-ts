@@ -2,6 +2,11 @@ import { Image } from 'antd';
 
 const cart_table_cols = [
     {
+        title: 'Id',
+        dataIndex: 'id',
+        key: 'id'
+    },
+    {
         title: 'Imagen',
         dataIndex: 'image',
         key: 'image',

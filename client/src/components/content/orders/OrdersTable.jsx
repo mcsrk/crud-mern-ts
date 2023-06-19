@@ -85,7 +85,9 @@ const OrdersTable = () => {
                 }}
             />
 
-            {orders.length > 0 ? (
+            {ordersLoading ? (
+                <Table bordered loading={ordersLoading} className="mt-8" columns={columns} dataSource={Array(3).fill(0)} rowClassName="cursor-pointer" />
+            ) : orders.length > 0 ? (
                 <Table
                     bordered
                     onRow={(row) => {

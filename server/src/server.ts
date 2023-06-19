@@ -13,6 +13,8 @@ import publicRoutes from './routes/Public.routes';
 import userRoutes from './routes/User.routes';
 import orderRoutes from './routes/Order.routes';
 
+const { validateAuth } = require('./middleware/JWTAuth');
+
 const router = express();
 
 /** Connect to Mongo */
@@ -60,6 +62,7 @@ const StartServer = () => {
 
     /** Routes */
     router.use('/', publicRoutes);
+    router.use(validateAuth);
     router.use('/users', userRoutes);
     router.use('/orders', orderRoutes);
 

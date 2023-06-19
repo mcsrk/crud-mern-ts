@@ -31,11 +31,14 @@ export const Schemas = {
                 .required(),
             status: Joi.string().valid('ACTIVE', 'COMPLETED'),
             rate: Joi.number().min(0).max(5),
+            total: Joi.number(),
             products: Joi.array()
                 .items(
                     Joi.object({
                         id: Joi.number().required(),
-                        price: Joi.number().required()
+                        price: Joi.number().required(),
+                        interest: Joi.number().required(),
+                        total: Joi.number().required()
                     })
                 )
                 .required()
@@ -44,31 +47,41 @@ export const Schemas = {
             user: Joi.string().regex(/^[0-9a-fA-F]{24}$/),
             status: Joi.string().valid('ACTIVE', 'COMPLETED'),
             rate: Joi.number().min(0).max(5),
+            total: Joi.number(),
             products: Joi.array().items(
                 Joi.object({
                     id: Joi.number().required(),
-                    price: Joi.number().required()
+                    price: Joi.number(),
+                    interest: Joi.number(),
+                    total: Joi.number()
                 })
             )
+        }),
+        rate: Joi.object<IOrder>({
+            rate: Joi.number().min(0).max(5).required()
         })
     },
     user: {
         create: Joi.object<IUser>({
             username: Joi.string().required(),
-            password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/)
+            password: Joi.string().required()
         }),
         update: Joi.object<IUser>({
             username: Joi.string(),
-            password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/)
+            password: Joi.string()
         }).or('username', 'password')
     },
     product: {
         create: Joi.object<IProduct>({
             id: Joi.number().required(),
-            price: Joi.number().required()
+            price: Joi.number().required(),
+            interest: Joi.number().required(),
+            total: Joi.number().required()
         }),
         update: Joi.object<IProduct>({
-            price: Joi.number().required()
-        })
+            price: Joi.number(),
+            interest: Joi.number(),
+            total: Joi.number()
+        }).or('price', 'interest', 'total')
     }
 };

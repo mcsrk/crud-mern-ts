@@ -50,12 +50,12 @@ const orders_table_cols = [
         }
     },
     {
-        title: 'Calificación',
-        dataIndex: 'rate',
-        key: 'rate',
+        title: 'Total',
+        dataIndex: 'total',
+        key: 'total',
         responsive: ['md'],
         render: (_, record) => {
-            return record?.rate ? record.rate : <p className="italic text-gray-400 m-0">Sin calificacion</p>;
+            return record?.total ? record.total : <p className="italic text-gray-400 m-0">Sin total</p>;
         }
     }
 ];

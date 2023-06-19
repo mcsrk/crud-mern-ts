@@ -10,6 +10,7 @@ const router = express.Router();
 
 router.get('/', controller.readAll);
 router.get('/:userId', controller.readUser);
+router.get('/:userId/orders', controller.getOrdersByUser);
 
 router.patch('/:userId', ValidateJoi(Schemas.user.update), controller.updateUser);
 router.delete('/:userId', controller.deleteUser);

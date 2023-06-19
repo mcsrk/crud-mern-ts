@@ -8,6 +8,7 @@ import { config } from '../config/config';
 
 // Models
 import User from '../models/User';
+import Order from '../models/Order';
 
 const createUser = (req: Request, res: Response) => {
     const { username, password } = req.body;
@@ -124,4 +125,18 @@ const deleteUser = (req: Request, res: Response) => {
         .catch((error) => res.status(500).json({ error }));
 };
 
-export default { createUser, readUser, readAll, updateUser, deleteUser, login };
+const getOrdersByUser = (req: Request, res: Response) => {
+    const userId = req.params.userId;
+    console.log({ userId });
+    return Order.find({ user: userId })
+        .then((orders) => {
+            if (orders.length > 0) {
+                return res.status(200).json({ orders });
+            } else {
+                return res.status(404).json({ message: 'No orders found for the user' });
+            }
+        })
+        .catch((error) => res.status(500).json({ error }));
+};
+
+export default { createUser, readUser, getOrdersByUser, readAll, updateUser, deleteUser, login };

@@ -23,7 +23,7 @@ function App() {
             <ConfigProvider locale={es_ES}>
                 <BrowserRouter history={createBrowserHistory()}>
                     <Auth>
-                        <Layout className="layout ">
+                        <Layout className="layout max-w-screen-2xl">
                             <CustomHeader />
                             <Main colorBgContainer={colorBgContainer} />
                             <CustomFooter />

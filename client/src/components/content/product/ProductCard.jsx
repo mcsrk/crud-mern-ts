@@ -1,27 +1,31 @@
 import { Card, Col, Row, Button, Image, Rate, Tag } from 'antd';
-import PropTypes from 'prop-types';
 import { DeleteOutlined } from '@ant-design/icons';
+import PropTypes from 'prop-types';
 
-// Redux
-import { add, remove } from '../../../redux/slices/cartSlice';
-import { useSelector, useDispatch } from 'react-redux';
+// Zustand Storage
+import { useShoppingCartStore } from '../../../store/shoppingCartStore';
 
 // Utils
 import { openNotification } from '../../../utils/utils';
 
 const ProductCard = ({ productData }) => {
-    const { cart } = useSelector((state) => state);
-    const dispatch = useDispatch();
-
     const { id, title, price, description, category, image, rating } = productData;
 
+    /** Global state */
+
+    // Methods
+    const { addProductToCart, removeProductFromCart, isProductInCart } = useShoppingCartStore();
+
+    // Variables
+    const { cart } = useShoppingCartStore();
+
     const addToCart = () => {
-        dispatch(add(productData));
-        openNotification('success', `${title} añadido a tu carrito`);
+        addProductToCart(productData);
+        openNotification('success', `Producto añadido a tu carrito`, title);
     };
 
     const removeFromCart = () => {
-        dispatch(remove(id));
+        removeProductFromCart(id);
         openNotification('info', `Producto eliminado de tu carrito!`);
     };
 
@@ -44,7 +48,7 @@ const ProductCard = ({ productData }) => {
 
             <Row gutter={[16, 16]} className="add-cart-btn-row" justify="space-between">
                 <Col>
-                    <Button title="Añadir al carrito" disabled={cart.some((product) => product.id === id)} onClick={addToCart} type="primary">
+                    <Button title="Añadir al carrito" disabled={isProductInCart(id)} onClick={addToCart} type="primary">
                         Añadir al carrito
                     </Button>
                 </Col>

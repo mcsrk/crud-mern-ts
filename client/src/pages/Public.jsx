@@ -22,7 +22,7 @@ const Public = () => {
         <Routes>
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/register" element={<Signup />} />
-            <Route exact path="/" element={<Products />} />
+            <Route exact path="/" element={<Products publicAccess={true} />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
     );

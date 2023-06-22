@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Divider, List, Space } from 'antd';
 import { ShopOutlined, ReloadOutlined } from '@ant-design/icons';
+import PropTypes from 'prop-types';
 
 // Components
 import TableTitle from '../../common/TableTitle';
@@ -15,7 +16,7 @@ import ProductCard from './ProductCard';
 import ProductSkeleton from './ProductSkeleton';
 import SelectCategory from './SelectCategory';
 
-const Products = () => {
+const Products = ({ publicAccess = false }) => {
     const [productsLoading, setProductsLoading] = useState(false);
     const [products, setProducts] = useState([]);
     const [queryCategory, setQueryCategory] = useState('');
@@ -87,10 +88,13 @@ const Products = () => {
                 }}
                 loading={productsLoading}
                 dataSource={productsLoading ? Array(12).fill(0) : products}
-                renderItem={(product) => <List.Item>{productsLoading ? <ProductSkeleton /> : <ProductCard productData={product} />}</List.Item>}
+                renderItem={(product) => <List.Item>{productsLoading ? <ProductSkeleton /> : <ProductCard publicAccess={publicAccess} productData={product} />}</List.Item>}
             />
         </>
     );
+};
+Products.propTypes = {
+    publicAccess: PropTypes.bool
 };
 
 export default Products;

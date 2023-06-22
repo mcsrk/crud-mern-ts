@@ -7,12 +7,13 @@ import { useShoppingCartStore } from '../../../store/shoppingCartStore';
 
 // Utils
 import { openNotification } from '../../../utils/utils';
+import { useNavigate } from 'react-router-dom';
 
-const ProductCard = ({ productData }) => {
+const ProductCard = ({ publicAccess, productData }) => {
+    const navigate = useNavigate();
     const { id, title, price, description, category, image, rating } = productData;
 
     /** Global state */
-
     // Methods
     const { addProductToCart, removeProductFromCart, isProductInCart } = useShoppingCartStore();
 
@@ -20,8 +21,12 @@ const ProductCard = ({ productData }) => {
     const { cart } = useShoppingCartStore();
 
     const addToCart = () => {
-        addProductToCart(productData);
-        openNotification('success', `Producto añadido a tu carrito`, title);
+        if (publicAccess) {
+            navigate('/login', { replace: true });
+        } else {
+            addProductToCart(productData);
+            openNotification('success', `Producto añadido a tu carrito`, title);
+        }
     };
 
     const removeFromCart = () => {
@@ -32,7 +37,6 @@ const ProductCard = ({ productData }) => {
     return (
         <Card
             key={`product-card-${id}`}
-            hoverable
             className="p-2 text-center rounded max-w-xs group hover:scale-105 transition duration-200 ease-in hover:shadow-lg"
             cover={<Image className="object-contain" height={150} src={image} />}
         >
@@ -48,7 +52,7 @@ const ProductCard = ({ productData }) => {
 
             <Row gutter={[16, 16]} className="add-cart-btn-row" justify="space-between">
                 <Col>
-                    <Button title="Añadir al carrito" disabled={isProductInCart(id)} onClick={addToCart} type="primary">
+                    <Button title="Añadir al carrito" disabled={isProductInCart(id)} onClick={addToCart} type={`${publicAccess ? 'default' : 'primary'}`}>
                         Añadir al carrito
                     </Button>
                 </Col>
@@ -63,6 +67,7 @@ const ProductCard = ({ productData }) => {
 };
 
 ProductCard.propTypes = {
+    publicAccess: PropTypes.bool,
     productData: PropTypes.shape({
         id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,

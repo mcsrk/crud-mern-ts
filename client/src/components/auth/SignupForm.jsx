@@ -1,49 +1,55 @@
 import { useState } from 'react';
 import { Button, Card, Form, Input, Spin } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
 
 // Components
 import LandingCardHeader from '../common/LandingCardHeader';
 
 // Services
-import { loginUser } from '../../services/userService';
+import { createUser } from '../../services/userService';
 
 // Utils
 import { openNotification } from '../../utils/utils';
 
 // Constants
 import loadingMessages from '../../constants/loading-messages';
+import { useNavigate } from 'react-router-dom';
 
-const Login = ({ setCurrentTab }) => {
+const SignupForm = () => {
     const navigate = useNavigate();
-
     const [form] = Form.useForm();
-    const [loginLoading, setLoginLoading] = useState(false);
+    const [signupLoading, setSignupLoading] = useState(false);
 
-    const handleLogin = async (username, password) => {
-        setLoginLoading(true);
+    const handleCreateUser = async (newuserBody) => {
+        setSignupLoading(true);
         try {
-            await loginUser(username, password, navigate);
-            openNotification('success', 'Bienvenido!');
+            await createUser(newuserBody);
+            openNotification('success', 'Usuario creado!');
             form.resetFields();
+
+            navigate('/login', { replace: true });
         } catch (e) {
-            console.log('[Login] - Error iniciando sesión', e.response?.data?.message);
-            openNotification('error', 'Error iniciando sesión.', e.response?.data?.message);
+            console.log('[Signup] - Error creando usuario', e.response.data.message);
+            openNotification('error', 'Error creando usuario.', e.response.data.message);
         } finally {
-            setLoginLoading(false);
+            setSignupLoading(false);
         }
     };
 
     const onFinish = (values) => {
-        handleLogin(values.username.trim(), values.password.trim());
+        const newUserData = {
+            username: btoa(values?.username.trim()),
+            password: btoa(values?.password.trim())
+        };
+
+        handleCreateUser(newUserData);
     };
 
     return (
         <Card className="max-w-md px-4 w-full mx-auto">
-            <LandingCardHeader heading="Ingresa con tu cuenta" paragraph="¿No tienes una cuenta aún? " linkName="Registrate" onClick={() => setCurrentTab('SIGNUP')} />
-            <Spin spinning={loginLoading} tip={loadingMessages.login}>
-                <Form form={form} layout="vertical" name="login" className="w-full" onFinish={onFinish} autoComplete="off">
+            <LandingCardHeader heading="Crea un usuario" paragraph="¿Ya tienes un usuario? " linkName="Ingresa" onClick={() => navigate('/login', { replace: true })} />
+            <Spin spinning={signupLoading} tip={loadingMessages.signup}>
+                <Form form={form} layout="vertical" name="signup" className="w-full " onFinish={onFinish} autoComplete="off">
                     <Form.Item
                         name="username"
                         label="Nombre de usuario"
@@ -71,8 +77,8 @@ const Login = ({ setCurrentTab }) => {
                     </Form.Item>
 
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" loading={loginLoading} className="w-full">
-                            Ingresar
+                        <Button htmlType="submit" loading={signupLoading} className="w-full">
+                            Registrarte
                         </Button>
                     </Form.Item>
                 </Form>
@@ -81,4 +87,4 @@ const Login = ({ setCurrentTab }) => {
     );
 };
 
-export default Login;
+export default SignupForm;

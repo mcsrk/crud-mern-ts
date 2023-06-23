@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 // Utils
-import { openNotification } from '../../../utils/utils';
+import { openNotification } from '../../../../utils/utils';
 
 // Services
-import { getCategories } from '../../../services/productService';
+import { getCategories } from '../../../../services/productService';
 
 const SelectCategory = ({ setQueryCategory }) => {
     const [categoriesLoading, setCategoriesLoading] = useState(false);
@@ -35,20 +35,7 @@ const SelectCategory = ({ setQueryCategory }) => {
         handleGetCategories();
     }, []);
 
-    return (
-        <Select
-            allowClear
-            placeholder="Filtra por categoría"
-            className="w-48   mr-auto"
-            style={{
-                width: 200
-            }}
-            loading={categoriesLoading}
-            disabled={categoriesLoading}
-            onChange={setQueryCategory}
-            options={categories}
-        />
-    );
+    return <Select allowClear placeholder="Filter by category" className="w-64 mr-auto" loading={categoriesLoading} disabled={categoriesLoading} onChange={setQueryCategory} options={categories} />;
 };
 
 SelectCategory.propTypes = {

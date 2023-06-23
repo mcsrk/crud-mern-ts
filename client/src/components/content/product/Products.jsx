@@ -14,11 +14,14 @@ import { openNotification } from '../../../utils/utils';
 
 import ProductCard from './ProductCard';
 import ProductSkeleton from './ProductSkeleton';
-import SelectCategory from './SelectCategory';
+import SelectCategory from './filters/SelectCategory';
+import SearchProduct from './filters/SearchProduct';
 
 const Products = ({ publicAccess = false }) => {
     const [productsLoading, setProductsLoading] = useState(false);
     const [products, setProducts] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState([]);
+    const [queryName, setQueryName] = useState('');
     const [queryCategory, setQueryCategory] = useState('');
 
     const handleGetProducts = async () => {
@@ -32,6 +35,7 @@ const Products = ({ publicAccess = false }) => {
                 ...product
             }));
             setProducts(updatedRes);
+            setFilteredProducts(updatedRes);
             if (!updatedRes.length) {
                 openNotification('info', 'Sin productos');
             }
@@ -52,6 +56,16 @@ const Products = ({ publicAccess = false }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queryCategory]);
 
+    useEffect(() => {
+        console.log({ queryName });
+        if (!queryName) {
+            setFilteredProducts(products);
+        } else {
+            setFilteredProducts(products.filter((product) => product.title.toLowerCase().includes(queryName)));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [queryName]);
+
     return (
         <>
             <TableTitle
@@ -66,12 +80,10 @@ const Products = ({ publicAccess = false }) => {
                 }}
             />
             <Divider />
-            <Space
-                style={{
-                    width: '100%'
-                }}
-                direction="vertical"
-            >
+
+            <Space className=" w-4/5 rounded-md" direction="vertical">
+                <SearchProduct setQueryName={setQueryName} />
+
                 <SelectCategory setQueryCategory={setQueryCategory} />
             </Space>
 
@@ -87,7 +99,7 @@ const Products = ({ publicAccess = false }) => {
                     xxl: 4
                 }}
                 loading={productsLoading}
-                dataSource={productsLoading ? Array(12).fill(0) : products}
+                dataSource={productsLoading ? Array(12).fill(0) : filteredProducts}
                 renderItem={(product) => <List.Item>{productsLoading ? <ProductSkeleton /> : <ProductCard publicAccess={publicAccess} productData={product} />}</List.Item>}
             />
         </>

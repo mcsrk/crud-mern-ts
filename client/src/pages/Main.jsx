@@ -32,8 +32,4 @@ const Main = () => {
     );
 };
 
-Main.propTypes = {
-    colorBgContainer: PropTypes.string
-};
-
 export default Main;

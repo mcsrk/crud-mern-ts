@@ -13,7 +13,6 @@ export const getOrders = async (userId) => {
 export const getOrderDetails = async (orderId) => {
     try {
         const response = await createRequest().get(`/orders/${orderId}`);
-        console.log({ response });
         return response.data;
     } catch (e) {
         return throwErrors(e);

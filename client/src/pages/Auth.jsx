@@ -12,7 +12,7 @@ const Auth = ({ children }) => {
 };
 
 Auth.propTypes = {
-    colorBgContainer: PropTypes.string,
+    
     children: PropTypes.node
 };
 

@@ -2,8 +2,10 @@ import { Tag } from 'antd';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 
 dayjs.locale('es');
+dayjs.extend(localizedFormat);
 dayjs.extend(relativeTime);
 
 const orders_table_cols = [

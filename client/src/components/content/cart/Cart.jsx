@@ -102,11 +102,11 @@ const Cart = () => {
                     {cart.length > 0 ? (
                         <Table bordered columns={cart_table_cols} dataSource={cart} pagination={false} />
                     ) : (
-                        <Result className="border-solid border border-gray-100 rounded-lg" status="403" title="Carrito vacío!" subTitle="No has añadido productos todavía." />
+                        <Result className="border-solid border border-gray-200 rounded-lg" status="403" title="Carrito vacío!" subTitle="No has añadido productos todavía." />
                     )}
                 </Col>
                 <Col xs={24} md={8} className="justify-center px-8">
-                    <Card className="ml-auto shadow-sm" title={<div className="text-lg font-bold"> Resumen de tu orden</div>}>
+                    <Card bordered={false} className="border-solid border border-gray-200 ml-auto shadow-sm" title={<div className="text-lg font-bold"> Resumen de tu orden</div>}>
                         <div className="text-right">
                             <p>
                                 <span className="text-gray-700 font-semibold">Productos</span> : {cart.length}

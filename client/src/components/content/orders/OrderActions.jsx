@@ -9,9 +9,15 @@ import { deleteOrder, payOrder, rateOrder } from '../../../services/ordersSerivc
 
 // Utils
 import { openNotification } from '../../../utils/utils';
+import { useShoppingCartStore } from '../../../store/shoppingCartStore';
+import { useNavigate } from 'react-router-dom';
 
 const OrderActions = ({ order, handleGetOrders }) => {
     const { status, rate } = order;
+    const navigate = useNavigate();
+
+    /** Global state methods */
+    const { editOrder } = useShoppingCartStore();
 
     const [deletingKey, setDeletingKey] = useState(null);
     const [loadingDelete, setLoadingDelete] = useState(false);
@@ -20,6 +26,30 @@ const OrderActions = ({ order, handleGetOrders }) => {
     const [loadingPay, setLoadingPay] = useState(false);
 
     const [loadingRate, setLoadingRate] = useState(false);
+
+    // const handleUpdateOrder = async (orderId, rate) => {
+    //     setLoadingRate(true);
+    //     try {
+    //         await rateOrder(orderId, rate);
+    //         openNotification('success', 'Orden calificada!');
+    //         // hot reload
+    //         handleGetOrders();
+    //     } catch (e) {
+    //         console.log('[Order] - Error calificando orden', e.response?.data?.message);
+    //         openNotification('error', 'Error calificando orden.', e.response?.data?.message);
+    //     } finally {
+    //         setLoadingRate(null);
+    //     }
+    // };
+
+    const handleOnEditOrder = async (_order) => {
+        const { _id, products, total } = _order;
+        /** Store the orden in global state */
+        editOrder(_id, products, total);
+
+        /** Redirect to edit page */
+        navigate(`/orders/${_id}`);
+    };
 
     const handleDeteleOrder = async ({ _id }) => {
         setDeletingKey(_id);
@@ -98,12 +128,14 @@ const OrderActions = ({ order, handleGetOrders }) => {
                         onClick={(e) => {
                             // Stops "Selected order row -> show products" interaction
                             e.stopPropagation();
+                            handleOnEditOrder(order);
                         }}
                         type="text"
                         shape="circle"
                         icon={<EditOutlined />}
                         disabled={loadingDelete || status === 'COMPLETED'}
                         size="small"
+                        title={'Edit order'}
                     />
                     <Popconfirm
                         title="Borrar orden"
@@ -127,6 +159,7 @@ const OrderActions = ({ order, handleGetOrders }) => {
                         placement="bottom"
                     >
                         <Button
+                            title={'Delet order'}
                             onClick={(e) => e.stopPropagation()}
                             danger
                             type="text"
@@ -142,6 +175,7 @@ const OrderActions = ({ order, handleGetOrders }) => {
                     </Popconfirm>
                     {status === 'ACTIVE' && (
                         <Button
+                            title={'Pay order'}
                             onClick={(e) => {
                                 // Stops "Selected order row -> show products" interaction
                                 e.stopPropagation();

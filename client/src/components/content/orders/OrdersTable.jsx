@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Result, Table } from 'antd';
+import { ConfigProvider, Result, Table } from 'antd';
 import { BookOutlined, ReloadOutlined } from '@ant-design/icons';
 
 // Router
@@ -67,7 +67,7 @@ const OrdersTable = () => {
 
     const handleClickRow = (row) => {
         const { key } = row;
-        navigate(`/orders/${key}/products`);
+        navigate(`/orders/${key}`);
     };
 
     return (
@@ -85,9 +85,7 @@ const OrdersTable = () => {
                 }}
             />
 
-            {ordersLoading ? (
-                <Table bordered className="mt-8" columns={columns} dataSource={Array(3).fill({ status: 'ACTIVE' })} rowClassName="cursor-pointer" />
-            ) : orders.length > 0 ? (
+            <ConfigProvider renderEmpty={() => <Result status="403" title="Sin ordenes!" subTitle="No has creado ordenes todavía." />}>
                 <Table
                     bordered
                     onRow={(row) => {
@@ -103,9 +101,7 @@ const OrdersTable = () => {
                     dataSource={orders}
                     rowClassName="cursor-pointer"
                 />
-            ) : (
-                <Result status="403" title="Sin ordenes!" subTitle="No has creado ordenes todavía." />
-            )}
+            </ConfigProvider>
         </>
     );
 };

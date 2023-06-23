@@ -8,7 +8,7 @@ import { getToken } from '../services/userService';
 
 /** Components */
 const Products = loadable(() => import('../components/content/product/Products'));
-const OrdersTable = loadable(() => import('../components/content/orders/OrdersTable'));
+const Orders = loadable(() => import('./Orders'));
 const Cart = loadable(() => import('../components/content/cart/Cart'));
 const NotFound = loadable(() => import('./NotFound'));
 
@@ -25,9 +25,8 @@ const Main = () => {
     return (
         <Routes>
             <Route path="/products" element={<Products />} />
-            <Route path="/orders" element={<OrdersTable />} />
+            <Route path="/orders/*" element={<Orders />} />
             <Route path="/cart" element={<Cart />} />
-            {/* <Route path="/orders/:company_nit/products" element={<Inventory />} /> */}
             <Route path="*" element={<NotFound />} />
         </Routes>
     );

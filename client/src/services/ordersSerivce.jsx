@@ -10,6 +10,16 @@ export const getOrders = async (userId) => {
     }
 };
 
+export const getOrderDetails = async (orderId) => {
+    try {
+        const response = await createRequest().get(`/orders/${orderId}`);
+        console.log({ response });
+        return response.data;
+    } catch (e) {
+        return throwErrors(e);
+    }
+};
+
 export const payOrder = async (orderId) => {
     try {
         const response = await createRequest().post(`/orders/${orderId}/complete`);
@@ -30,6 +40,14 @@ export const rateOrder = async (orderId, rate) => {
 export const createOrder = async (orderbody) => {
     try {
         const response = await createRequest().post(`/orders`, orderbody);
+        return response.data;
+    } catch (e) {
+        return throwErrors(e);
+    }
+};
+export const updateOrder = async (orderId, orderbody) => {
+    try {
+        const response = await createRequest().patch(`/orders/${orderId}`, orderbody);
         return response.data;
     } catch (e) {
         return throwErrors(e);

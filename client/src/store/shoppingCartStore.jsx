@@ -3,10 +3,12 @@ import { create } from 'zustand';
 const initialState = {
     cart: [],
     total: 0,
+    orderId: ''
 };
 
 export const useShoppingCartStore = create((set, get) => ({
     /** State */
+    orderId: initialState.orderId,
     cart: initialState.cart,
     total: initialState.total,
 
@@ -18,5 +20,7 @@ export const useShoppingCartStore = create((set, get) => ({
 
     addProductToCart: (product) => set((state) => ({ cart: [...state.cart, product], total: parseFloat(state.total + product.total).toFixed(2) })),
     removeProductFromCart: (productId) => set((state) => ({ cart: state.cart.filter((product) => product.id !== productId) })),
-    cleanCart: () => set({ initialState }),
+    editOrder: (orderId, products, total) => set({ orderId, cart: products, total: parseFloat(total).toFixed(2) }),
+
+    cleanCart: () => set({ initialState })
 }));

@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import loadable from '@loadable/component';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 /** Utils */
 import { getToken } from '../services/userService';

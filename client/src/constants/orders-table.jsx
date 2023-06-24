@@ -1,8 +1,10 @@
-import { Tag } from 'antd';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
+
+// Components
+import OrderStatus from '../components/common/OrderStatus';
 
 dayjs.locale('es');
 dayjs.extend(localizedFormat);
@@ -18,8 +20,8 @@ const orders_table_cols = [
         title: 'Estado',
         dataIndex: 'status',
         key: 'status',
-        render: (_, record) => {
-            return <Tag color={record.status === 'ACTIVE' ? 'green' : 'geekblue'}>{record.status}</Tag>;
+        render: (_, { status }) => {
+            return <OrderStatus status={status} />;
         },
         filters: [
             {

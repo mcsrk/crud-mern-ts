@@ -5,7 +5,7 @@ const OrderStatus = ({ status }) => {
     const colors = { COMPLETED: 'green', ACTIVE: 'geekblue' };
 
     return (
-        <Tag className="mr-0" color={colors[status] ?? 'gray'}>
+        <Tag className="mx-0" color={colors[status] ?? 'gray'}>
             {status}
         </Tag>
     );

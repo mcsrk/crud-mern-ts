@@ -3,12 +3,13 @@ import { Menu, Layout, Button, Space, Tooltip, Badge, Divider } from 'antd';
 import { useNavigate } from 'react-router-dom';
 // Constants
 import sidebar_menu from '../../constants/header-menu';
+// Zustand
+import { useBoundStore } from '../../store/useBoundStore';
 
 // Services
 import { logOutUser } from '../../services/userService';
 
 import { getToken } from '../../services/userService';
-import { useShoppingCartStore } from '../../store/shoppingCartStore';
 
 // Const
 const { Header } = Layout;
@@ -17,7 +18,7 @@ const CustomHeader = () => {
     const token = getToken();
     const navigate = useNavigate();
 
-    const { cart } = useShoppingCartStore();
+    const { cart } = useBoundStore();
 
     return (
         <Header className="flex justify-between items-center px-4 sm:px-6">

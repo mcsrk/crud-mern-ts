@@ -20,6 +20,10 @@ const OrderSchema: Schema = new Schema(
         products: [
             {
                 id: { type: Number, required: true },
+                title: { type: String, required: true },
+                description: { type: String },
+                image: { type: String },
+                category: { type: String },
                 price: { type: Number, required: true },
                 interest: { type: Number, required: true },
                 total: { type: Number, required: true }

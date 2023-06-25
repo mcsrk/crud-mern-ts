@@ -36,6 +36,10 @@ export const Schemas = {
                 .items(
                     Joi.object({
                         id: Joi.number().required(),
+                        title: Joi.string().required(),
+                        description: Joi.string(),
+                        image: Joi.string(),
+                        category: Joi.string(),
                         price: Joi.number().required(),
                         interest: Joi.number().required(),
                         total: Joi.number().required()
@@ -51,6 +55,10 @@ export const Schemas = {
             products: Joi.array().items(
                 Joi.object({
                     id: Joi.number().required(),
+                    title: Joi.string(),
+                    description: Joi.string(),
+                    image: Joi.string(),
+                    category: Joi.string(),
                     price: Joi.number(),
                     interest: Joi.number(),
                     total: Joi.number()
@@ -74,14 +82,22 @@ export const Schemas = {
     product: {
         create: Joi.object<IProduct>({
             id: Joi.number().required(),
+            title: Joi.string().required(),
+            description: Joi.string(),
+            image: Joi.string(),
+            category: Joi.string(),
             price: Joi.number().required(),
             interest: Joi.number().required(),
             total: Joi.number().required()
         }),
         update: Joi.object<IProduct>({
             price: Joi.number(),
+            title: Joi.string(),
+            description: Joi.string(),
+            image: Joi.string(),
+            category: Joi.string(),
             interest: Joi.number(),
             total: Joi.number()
-        }).or('price', 'interest', 'total')
+        }).or('title', 'description', 'image', 'category', 'price', 'interest', 'total')
     }
 };

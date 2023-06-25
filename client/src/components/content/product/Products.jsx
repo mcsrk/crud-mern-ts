@@ -5,17 +5,16 @@ import PropTypes from 'prop-types';
 
 // Components
 import TableTitle from '../../common/TableTitle';
+import SelectCategory from './filters/SelectCategory';
+import SearchProduct from './filters/SearchProduct';
+import ProductCard from './ProductCard';
+import ProductSkeleton from './ProductSkeleton';
 
 // Services
 import { getProducts } from '../../../services/productService';
 
 //Utils
 import { openNotification } from '../../../utils/utils';
-
-import ProductCard from './ProductCard';
-import ProductSkeleton from './ProductSkeleton';
-import SelectCategory from './filters/SelectCategory';
-import SearchProduct from './filters/SearchProduct';
 
 const Products = ({ publicAccess = false }) => {
     const [productsLoading, setProductsLoading] = useState(false);

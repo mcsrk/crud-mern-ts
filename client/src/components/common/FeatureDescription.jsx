@@ -16,7 +16,7 @@ const FeatureDescription = ({ title, description, icon = null }) => {
 
 FeatureDescription.propTypes = {
     title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
+    description: PropTypes.string,
     icon: PropTypes.node
 };
 

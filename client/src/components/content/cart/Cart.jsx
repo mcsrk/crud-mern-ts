@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { DeleteOutlined, ShoppingCartOutlined } from '@ant-design/icons';
-import { Button, Card, Col, Result, Row, Space, Table } from 'antd';
+import { Button, Col, Result, Row, Table } from 'antd';
 
 // Constants
 import cart_table_cols from '../../../constants/cart-table';
 
 // Components
 import TableTitle from '../../common/TableTitle';
+import OrderSummary from '../../common/OrderSummary';
 
 // Zustand Storage
-import { useShoppingCartStore } from '../../../store/shoppingCartStore';
+import { useBoundStore } from '../../../store/useBoundStore';
 
 // Utils
 import { openNotification } from '../../../utils/utils';
@@ -20,10 +21,10 @@ const Cart = () => {
     /** Global state */
 
     // Methods
-    const { removeProductFromCart, cleanCart } = useShoppingCartStore();
+    const { removeProductFromCart, cleanCart } = useBoundStore();
 
     // Variables
-    const { cart, total } = useShoppingCartStore();
+    const { cart, cartTotal } = useBoundStore();
 
     const userData = getUserData();
 
@@ -35,20 +36,21 @@ const Cart = () => {
     };
 
     const handleDeleteAll = (showNotification = false) => {
-        cleanCart();
+        try {
+            cleanCart();
+        } catch (error) {
+            console.log('error limpiando carrito', error);
+        }
         if (showNotification) openNotification('info', `Productos eliminados`);
     };
 
     const handleCreateOrder = async (_cart, _user) => {
         setCreateLoading(true);
         try {
-            const products = _cart?.map(({ id, price, interest, total }) => {
-                return {
-                    price,
-                    interest,
-                    id,
-                    total
-                };
+            // Send the products to db ommiting "rating" and "key" fields
+            // eslint-disable-next-line no-unused-vars
+            const products = _cart?.map(({ rating, key, ...rest }) => {
+                return rest;
             });
 
             const orderBody = { user: _user.id, products };
@@ -106,25 +108,14 @@ const Cart = () => {
                     )}
                 </Col>
                 <Col xs={24} md={8} className="justify-center px-8">
-                    <Card bordered={false} className="border-solid border border-gray-200 ml-auto shadow-sm" title={<div className="text-lg font-bold"> Resumen de tu orden</div>}>
-                        <div className="text-right">
-                            <p>
-                                <span className="text-gray-700 font-semibold">Productos</span> : {cart.length}
-                            </p>
-                            <p>
-                                <span className="text-gray-700 font-bold">Total : ${total}</span>
-                            </p>
-
-                            <Space>
-                                <Button disabled={cart.length === 0} loading={createLoading} type="text" danger onClick={() => handleDeleteAll(true)}>
-                                    Borrar carrito
-                                </Button>
-                                <Button disabled={cart.length === 0} loading={createLoading} type="primary" onClick={() => handleCreateOrder(cart, userData)}>
-                                    Ordenar
-                                </Button>
-                            </Space>
-                        </div>
-                    </Card>
+                    <OrderSummary
+                        order={{ products: cart, total: cartTotal }}
+                        actions={{
+                            loading: createLoading,
+                            primary: { name: 'Ordenar', callback: () => handleCreateOrder(cart, userData) },
+                            secondary: { name: 'Borrar carrito', callback: handleDeleteAll }
+                        }}
+                    />
                 </Col>
             </Row>
         </>

@@ -4,12 +4,14 @@ import PropTypes from 'prop-types';
 
 import { DeleteOutlined, QuestionCircleOutlined, DollarOutlined, EditOutlined } from '@ant-design/icons';
 
+// Zustand
+import { useBoundStore } from '../../../store/useBoundStore';
+
 // Services
 import { deleteOrder, payOrder, rateOrder } from '../../../services/ordersSerivce';
 
 // Utils
 import { openNotification } from '../../../utils/utils';
-import { useShoppingCartStore } from '../../../store/shoppingCartStore';
 import { useNavigate } from 'react-router-dom';
 
 const OrderActions = ({ order, handleGetOrders }) => {
@@ -17,7 +19,7 @@ const OrderActions = ({ order, handleGetOrders }) => {
     const navigate = useNavigate();
 
     /** Global state methods */
-    const { editOrder } = useShoppingCartStore();
+    const { setOrder } = useBoundStore();
 
     const [deletingKey, setDeletingKey] = useState(null);
     const [loadingDelete, setLoadingDelete] = useState(false);
@@ -43,9 +45,9 @@ const OrderActions = ({ order, handleGetOrders }) => {
     // };
 
     const handleOnEditOrder = async (_order) => {
-        const { _id, products, total } = _order;
+        const { _id } = _order;
         /** Store the orden in global state */
-        editOrder(_id, products, total);
+        setOrder(_order);
 
         /** Redirect to edit page */
         navigate(`/orders/${_id}`);

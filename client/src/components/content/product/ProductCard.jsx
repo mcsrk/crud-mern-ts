@@ -3,7 +3,7 @@ import { DeleteOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 
 // Zustand Storage
-import { useShoppingCartStore } from '../../../store/shoppingCartStore';
+import { useBoundStore } from '../../../store/useBoundStore';
 
 // Utils
 import { openNotification } from '../../../utils/utils';
@@ -15,10 +15,10 @@ const ProductCard = ({ publicAccess, productData }) => {
 
     /** Global state */
     // Methods
-    const { addProductToCart, removeProductFromCart, isProductInCart } = useShoppingCartStore();
+    const { addProductToCart, removeProductFromCart, isProductInCart } = useBoundStore();
 
     // Variables
-    const { cart } = useShoppingCartStore();
+    const { cart } = useBoundStore();
 
     const addToCart = () => {
         if (publicAccess) {
@@ -39,7 +39,7 @@ const ProductCard = ({ publicAccess, productData }) => {
             key={`product-card-${id}`}
             bordered={false}
             className="p-2 text-center rounded max-w-xs border-solid border border-gray-200 group hover:scale-105 transition duration-200 ease-in hover:shadow-lg"
-            cover={<Image className="object-contain" height={150} src={image} />}
+            cover={<Image className="object-contain" height={150} src={image} alt={title} />}
         >
             <h4 className="text-xs text-ellipsis line-clamp-1 overflow-hidden ">{title}</h4>
             <Tag className="mr-auto" color="blue">
@@ -48,7 +48,7 @@ const ProductCard = ({ publicAccess, productData }) => {
             <p className="text-xs text-ellipsis line-clamp-4 text-justify text-gray-500">{description}</p>
             <Row justify="space-between">
                 <Rate className="max-h-3" disabled defaultValue={rating.rate} allowHalf />
-                <p className="text-right font-bold text-md border-2">$ {parseFloat(price).toFixed(2)}</p>
+                <p className="text-right font-bold text-md border-2">$ {parseFloat(price.toFixed(2))}</p>
             </Row>
 
             <Row gutter={[16, 16]} className="add-cart-btn-row" justify="space-between">

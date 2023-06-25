@@ -2,9 +2,6 @@ import { useEffect, useState } from 'react';
 import { ConfigProvider, Result, Table } from 'antd';
 import { BookOutlined, ReloadOutlined } from '@ant-design/icons';
 
-// Router
-import { useNavigate } from 'react-router';
-
 // Componets
 import TableTitle from '../../common/TableTitle';
 
@@ -20,8 +17,6 @@ import orders_table_cols from '../../../constants/orders-table';
 import OrderActions from './OrderActions';
 
 const OrdersTable = () => {
-    const navigate = useNavigate();
-
     const userData = getUserData();
 
     const [ordersLoading, setOrdersLoading] = useState(false);
@@ -65,11 +60,6 @@ const OrdersTable = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const handleClickRow = (row) => {
-        const { key } = row;
-        navigate(`/orders/${key}`);
-    };
-
     return (
         <>
             <TableTitle
@@ -86,21 +76,7 @@ const OrdersTable = () => {
             />
 
             <ConfigProvider renderEmpty={() => <Result status="403" title="Sin ordenes!" subTitle="No has creado ordenes todavía." />}>
-                <Table
-                    bordered
-                    onRow={(row) => {
-                        return {
-                            onClick: () => {
-                                handleClickRow(row);
-                            }
-                        };
-                    }}
-                    loading={ordersLoading}
-                    className="mt-8"
-                    columns={columns}
-                    dataSource={orders}
-                    rowClassName="cursor-pointer"
-                />
+                <Table bordered loading={ordersLoading} className="mt-8" columns={columns} dataSource={orders} />
             </ConfigProvider>
         </>
     );

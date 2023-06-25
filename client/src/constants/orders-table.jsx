@@ -74,7 +74,7 @@ const orders_table_cols = [
         key: 'total',
         responsive: ['md'],
         render: (_, record) => {
-            return record?.total ? <span className="text-bold">{'$ ' + parseFloat(record.total).toFixed(2)}</span> : <p className="italic text-gray-400 m-0">Sin total</p>;
+            return record?.total ? <span className="text-bold">{'$ ' + parseFloat(record.total.toFixed(2))}</span> : <p className="italic text-gray-400 m-0">Sin total</p>;
         }
     }
 ];

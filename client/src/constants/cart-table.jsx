@@ -24,7 +24,7 @@ const cart_table_cols = [
         dataIndex: 'price',
         key: 'price',
         render: (_, record) => {
-            return '$ ' + parseFloat(record.price).toFixed(2);
+            return '$ ' + parseFloat(record.price.toFixed(2));
         }
     },
     {
@@ -32,7 +32,7 @@ const cart_table_cols = [
         dataIndex: 'interest',
         key: 'interest',
         render: (_, record) => {
-            return '$ ' + parseFloat(record.interest).toFixed(2);
+            return '$ ' + parseFloat(record.interest.toFixed(2));
         }
     },
     {
@@ -41,7 +41,7 @@ const cart_table_cols = [
         key: 'total',
 
         render: (_, record) => {
-            return <span className="font-bold text-right">{'$ ' + parseFloat(record.total).toFixed(2)}</span>;
+            return <span className="font-bold text-right">{'$ ' + parseFloat(record.total.toFixed(2))}</span>;
         }
     }
 ];

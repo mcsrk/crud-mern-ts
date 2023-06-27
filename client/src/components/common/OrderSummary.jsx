@@ -2,10 +2,12 @@ import { Button, Card, Divider, Row, Space } from 'antd';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 
+// Zustand
+import { useBoundStore } from '../../store/useBoundStore';
+
 // Components
 import OrderStatus from './OrderStatus';
 import OrderSummarySkeleton from './OrderSummarySkeleton';
-import { useBoundStore } from '../../store/useBoundStore';
 
 const OrderSummary = ({ loading = false, actions }) => {
     const { _id, status, products, total, createdAt, updatedAt } = useBoundStore((state) => state.order);

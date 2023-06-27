@@ -66,7 +66,7 @@ const Products = ({ publicAccess = false }) => {
     }, [queryName]);
 
     return (
-        <>
+        <section className="w-full">
             <TableTitle
                 content={{
                     title: 'Productos',
@@ -101,7 +101,7 @@ const Products = ({ publicAccess = false }) => {
                 dataSource={productsLoading ? Array(12).fill(0) : filteredProducts}
                 renderItem={(product) => <List.Item>{productsLoading ? <ProductSkeleton /> : <ProductCard publicAccess={publicAccess} productData={product} />}</List.Item>}
             />
-        </>
+        </section>
     );
 };
 Products.propTypes = {

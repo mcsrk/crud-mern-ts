@@ -38,7 +38,7 @@ const ProductCard = ({ publicAccess, productData }) => {
         <Card
             key={`product-card-${id}`}
             bordered={false}
-            className="p-2 text-center rounded max-w-xs border-solid border border-gray-200 group hover:scale-105 transition duration-200 ease-in hover:shadow-lg"
+            className="mx-auto p-2 text-center rounded max-w-xs border-solid border border-gray-200 group hover:scale-105 transition duration-200 ease-in hover:shadow-lg"
             cover={<Image className="object-contain" height={150} src={image} alt={title} />}
         >
             <h4 className="text-xs text-ellipsis line-clamp-1 overflow-hidden ">{title}</h4>

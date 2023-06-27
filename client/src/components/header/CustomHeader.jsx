@@ -2,7 +2,7 @@ import { LogoutOutlined, LoginOutlined, ShoppingOutlined } from '@ant-design/ico
 import { Menu, Layout, Button, Space, Tooltip, Badge, Divider } from 'antd';
 import { useNavigate } from 'react-router-dom';
 // Constants
-import sidebar_menu from '../../constants/header-menu';
+import HEADER_MENU_OPTIONS from '../../constants/HEADER_MENU_OPTIONS';
 // Zustand
 import { useBoundStore } from '../../store/useBoundStore';
 
@@ -23,7 +23,13 @@ const CustomHeader = () => {
     return (
         <Header className="flex justify-between items-center px-4 sm:px-6">
             <div className="w-5/6 flex flex-row items-center">
-                <Menu className="w-full" theme="dark" mode="horizontal" defaultSelectedKeys={[sidebar_menu.default]} items={token ? sidebar_menu.auth_nav : sidebar_menu.public_nav} />
+                <Menu
+                    className="w-full"
+                    theme="dark"
+                    mode="horizontal"
+                    defaultSelectedKeys={[HEADER_MENU_OPTIONS.default]}
+                    items={token ? HEADER_MENU_OPTIONS.auth_nav : HEADER_MENU_OPTIONS.public_nav}
+                />
             </div>
             <Space>
                 <Tooltip title={`${cart.length} Productos en tu carrito`}>

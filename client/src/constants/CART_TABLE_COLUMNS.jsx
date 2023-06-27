@@ -1,6 +1,6 @@
 import { Image } from 'antd';
 
-const cart_table_cols = [
+const CART_TABLE_COLUMNS = [
     {
         title: 'Id',
         dataIndex: 'id',
@@ -46,4 +46,4 @@ const cart_table_cols = [
     }
 ];
 
-export default cart_table_cols;
+export default CART_TABLE_COLUMNS;

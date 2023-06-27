@@ -3,7 +3,7 @@ import { DeleteOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { Button, Col, Result, Row, Table } from 'antd';
 
 // Constants
-import cart_table_cols from '../../../constants/cart-table';
+import CART_TABLE_COLUMNS from '../../../constants/CART_TABLE_COLUMNS';
 
 // Components
 import TableTitle from '../../common/TableTitle';
@@ -68,9 +68,10 @@ const Cart = () => {
         }
     };
 
-    /** Pushing here the new column because of the handleGetOrder context */
-    if (!cart_table_cols.find((col) => col.key === 'action')) {
-        cart_table_cols.push({
+    /** Pushing the new column action because of the handleGetOrder context */
+    let columns = [...CART_TABLE_COLUMNS];
+    if (!columns.find((col) => col.key === 'action')) {
+        columns.push({
             title: 'Acción',
             key: 'action',
             width: '5%',
@@ -102,7 +103,7 @@ const Cart = () => {
             <Row gutter={[16, 16]} justify="space-between" className="min-h-[80vh] mt-8 mx-auto">
                 <Col xs={24} md={16}>
                     {cart.length > 0 ? (
-                        <Table bordered columns={cart_table_cols} dataSource={cart} pagination={false} />
+                        <Table bordered columns={columns} dataSource={cart} pagination={false} />
                     ) : (
                         <Result className="border-solid border border-gray-200 rounded-lg" status="403" title="Carrito vacío!" subTitle="No has añadido productos todavía." />
                     )}

@@ -10,7 +10,7 @@ dayjs.locale('es');
 dayjs.extend(localizedFormat);
 dayjs.extend(relativeTime);
 
-const orders_table_cols = [
+const ORDER_TABLE_COLUMNS = [
     {
         title: 'Id',
         dataIndex: '_id',
@@ -79,4 +79,4 @@ const orders_table_cols = [
     }
 ];
 
-export default orders_table_cols;
+export default ORDER_TABLE_COLUMNS;

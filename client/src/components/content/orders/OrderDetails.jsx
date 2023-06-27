@@ -12,11 +12,11 @@ import OrderSummary from '../../common/OrderSummary';
 // Services
 import { deleteOrder, getOrderDetails, payOrder, updateOrder } from '../../../services/ordersSerivce';
 
-//Utils
+// Utils
 import { openNotification } from '../../../utils/utils';
 
-// constants
-import cart_table_cols from '../../../constants/cart-table';
+// Constants
+import CART_TABLE_COLUMNS from '../../../constants/CART_TABLE_COLUMNS';
 
 const OrderDetails = () => {
     const navigate = useNavigate();
@@ -116,7 +116,7 @@ const OrderDetails = () => {
                     ) : (
                         <>
                             {orderDetails?.products?.length > 0 ? (
-                                <Table bordered columns={cart_table_cols} dataSource={orderDetails?.products} pagination={false} />
+                                <Table bordered columns={CART_TABLE_COLUMNS} dataSource={orderDetails?.products} pagination={false} />
                             ) : (
                                 <Result className="border-solid border border-gray-200 rounded-lg" status="403" title="Carrito vacío!" subTitle="No has añadido productos todavía." />
                             )}

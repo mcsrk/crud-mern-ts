@@ -13,7 +13,7 @@ import { getOrders } from '../../../services/ordersSerivce';
 import { openNotification } from '../../../utils/utils';
 
 // Costansts
-import orders_table_cols from '../../../constants/orders-table';
+import ORDER_TABLE_COLUMNS from '../../../constants/ORDER_TABLE_COLUMNS';
 import OrderActions from './OrderActions';
 
 const OrdersTable = () => {
@@ -21,8 +21,6 @@ const OrdersTable = () => {
 
     const [ordersLoading, setOrdersLoading] = useState(false);
     const [orders, setOrders] = useState([]);
-
-    let columns = [...orders_table_cols];
 
     const handleGetOrders = async () => {
         setOrdersLoading(true);
@@ -47,7 +45,9 @@ const OrdersTable = () => {
         handleGetOrders();
     };
 
-    /** Pushing here the new column because of the handleGetOrder context */
+    /** Pushing the new column action because of the handleGetOrder context */
+    let columns = [...ORDER_TABLE_COLUMNS];
+
     columns.push({
         title: 'Acción',
         key: 'action',

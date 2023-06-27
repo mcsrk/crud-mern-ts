@@ -12,7 +12,7 @@ import { createUser } from '../../services/userService';
 import { openNotification } from '../../utils/utils';
 
 // Constants
-import loadingMessages from '../../constants/loading-messages';
+import LOADING_MESSAGES from '../../constants/LOADING_MESSAGES';
 import { useNavigate } from 'react-router-dom';
 
 const SignupForm = () => {
@@ -48,7 +48,7 @@ const SignupForm = () => {
     return (
         <Card className="max-w-md px-4 w-full mx-auto">
             <LandingCardHeader heading="Crea un usuario" paragraph="¿Ya tienes un usuario? " linkName="Ingresa" onClick={() => navigate('/login', { replace: true })} />
-            <Spin spinning={signupLoading} tip={loadingMessages.signup}>
+            <Spin spinning={signupLoading} tip={LOADING_MESSAGES.signup}>
                 <Form form={form} layout="vertical" name="signup" className="w-full " onFinish={onFinish} autoComplete="off">
                     <Form.Item
                         name="username"

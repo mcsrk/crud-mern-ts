@@ -2,7 +2,7 @@ import { Tag } from 'antd';
 import PropTypes from 'prop-types';
 
 // constants
-import STATUSES_COLORS from '../../constants/status-colors';
+import STATUSES_COLORS from '../../constants/STATUSES_COLORS';
 
 const OrderStatus = ({ status }) => {
     const color = STATUSES_COLORS[status] ?? STATUSES_COLORS.DEFAULT;

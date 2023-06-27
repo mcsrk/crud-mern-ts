@@ -1,7 +1,7 @@
 import { HomeOutlined, ShopOutlined, ShoppingCartOutlined, BookOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
-const sidebar_menu = {
+const HEADER_MENU_OPTIONS = Object.freeze({
     default: '1',
     public_nav: [
         { key: 1, label: <Link to="/" />, icon: <HomeOutlined /> },
@@ -13,6 +13,6 @@ const sidebar_menu = {
         { key: 2, label: <Link to="/orders">Ordenes</Link>, icon: <BookOutlined /> },
         { key: 3, label: <Link to="/cart">Carrito</Link>, icon: <ShoppingCartOutlined /> }
     ]
-};
+});
 
-export default sidebar_menu;
+export default HEADER_MENU_OPTIONS;

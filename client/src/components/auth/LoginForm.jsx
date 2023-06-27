@@ -13,7 +13,7 @@ import { loginUser } from '../../services/userService';
 import { openNotification } from '../../utils/utils';
 
 // Constants
-import loadingMessages from '../../constants/loading-messages';
+import LOADING_MESSAGES from '../../constants/LOADING_MESSAGES';
 
 const LoginForm = () => {
     const navigate = useNavigate();
@@ -49,7 +49,7 @@ const LoginForm = () => {
                     navigate('/register', { replace: true });
                 }}
             />
-            <Spin spinning={loginLoading} tip={loadingMessages.login}>
+            <Spin spinning={loginLoading} tip={LOADING_MESSAGES.login}>
                 <Form form={form} layout="vertical" name="login" className="w-full" onFinish={onFinish} autoComplete="off">
                     <Form.Item
                         name="username"

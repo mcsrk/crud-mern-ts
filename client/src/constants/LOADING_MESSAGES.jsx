@@ -1,4 +1,4 @@
-const loadingMessages = {
+const LOADING_MESSAGES = {
     signup: 'Creando usuario...',
     login: 'Verificando credenciales...',
     getSingleCompany: 'Obteniendo datos de la empresa...',
@@ -7,4 +7,4 @@ const loadingMessages = {
     createProduct: 'Creando producto...'
 };
 
-export default loadingMessages;
+export default LOADING_MESSAGES;
